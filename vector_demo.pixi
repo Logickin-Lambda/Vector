@@ -1,0 +1,83 @@
+// *********************************************************************************************
+// This is the demo of the Vector data structure in pixilang
+// show_log.pixi is the defalt logger used in the pixilang example, 
+// which used for showing the example
+//
+// set the file path if the show_log file is in somewhere else
+// e.g. "../notey/show_log.pixi", 
+// ../ means the process will seek the parent folder, relatively to this file, 
+// notey/ is one of the folder in the parent folder with the name notey.
+//
+// *********************************************************************************************
+
+include "lib/show_log.pixi"
+include "lib/vector.pixi"
+
+// examples: run in pixilang by choosing this file
+logf("\n\n\n\nVectors Examples:\n\n")
+logf("Creating two vectors with filling some values, using vec_new($type) and vec_push($vec, $value):\n\n")
+
+a = vec_new(INT8)
+b = vec_new(INT8)
+
+vec_push(b, 7)
+vec_push(b, 11)
+vec_push(b, 69)
+vec_push(b, 99)
+vec_push(b, 127)
+
+logf("a = vec_new(INT8)\n")
+logf("b = vec_new(INT8)\n")
+logf("vec_push(b, 7)\n")
+logf("vec_push(b, 11)\n")
+logf("vec_push(b, 69)\n")	// yea... let's ignore Adam Needy's reference
+logf("vec_push(b, 99)\n")
+logf("vec_push(b, 127)\n\n")
+
+logf("The vector B contains [%d, %d, %d, %d, %d], after pushing five items.\n\n", b[0], b[1], b[2], b[3], b[4])
+
+logf("Since the reference of the containers are also integers, we can store a container in other containers.\n")
+logf("AKA vector in a vector\n\n")
+vec_push(a, 45)
+vec_push(a, 90)
+vec_push(a, b)
+
+logf("vec_push(a, 45)\n")
+logf("vec_push(a, 90)\n")
+logf("vec_push(a, b)\n\n")
+
+logf("The vector A contains three values [%d, %d, %d], but the last element is the refernce of the vector B\n", a[0], a[1], a[2])
+logf("So we can access vector B from vector A in a 2D array manner (a[2][2]): %d\n\n", a[2][2])
+
+logf("To make iteration easier, vectors have a property for size by calling vec_size($vec)\n\n")
+
+bsize = vec_size(b)
+logf("bsize = vec_size(b)\n\n")
+logf("Size of bsize: %d\n\n", bsize)
+
+logf("There is a pop function as well, to simulate the stack behavior\n\n")
+
+logf("number = vec_pop(b)\n\n")
+number = vec_pop(b)
+
+logf("The vector B contains [%d, %d, %d, %d, %d], after popped the last item.\n", b[0], b[1], b[2], b[3], b[4])
+logf("And the last item is returned after calling the function. number: %d \n", number)
+logf("And the new size of the vector B: %d \n\n", vec_size(b))
+
+logf("Vector supports inserting and deleting items at the specific as well: \n\n")
+
+logf("vec_insert_at(b, 1, 97)\n")	// insert 97 at index 1 
+logf("vec_delete_at(b, 0)\n\n")		// remove 7 at index 0
+vec_insert_at(b, 1, 97)
+vec_delete_at(b, 0)
+
+logf("Thus, we have the following four items [%d, %d, %d, %d]: \n\n", b[0], b[1], b[2], b[3])
+logf("Size of the vector B: %d \n\n", vec_size(b))
+
+logf("Last but not least, there is a search function as well, and it is a linear search due to handling unsorted vectors: %d \n\n")
+logf("nice_idx = vec_search (b, 69)\n")
+
+idx = vec_search (b, 69)
+
+logf("Where is 69? At %d", idx)
+show_log()
